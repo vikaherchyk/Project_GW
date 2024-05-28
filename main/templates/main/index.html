@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% comment %} {% load goods_tags %} {% endcomment %}
+
+{% block content %}
+<div class="container-top">
+    {% comment %} id="container" {% endcomment %}
+    <section class="section-container" style="background-image: url('{% static "deps/img/photo_1.jpg" %}')">
+        <h2>Квартири</h2>
+        {% comment %} <p>Содержимое секции 1...</p> {% endcomment %}
+        <button class="section-button">Квартири</button>
+        {% comment %} {% tag_categories as categories %}
+        {% for category in categories %}
+            <a href="{% url "catalog:index" category.slug %}">{{category.name}}</a>
+        {% endfor %} {% endcomment %}
+    </section>
+
+    <section class="section-container" style="background-image: url('{% static "deps/img/photo_2.jpg" %}')">
+        <h2>Будинки</h2>
+        {% comment %} <p>Содержимое секции 2...</p> {% endcomment %}
+        <button class="section-button">Будинки</button>
+    </section>
+
+    {% comment %} <section class="section-container" style="background-image: url('{% static "deps/img/photo_3.jpg" %}')">
+        <h2>Хостинги</h2>
+        <p>Содержимое секции 3...</p>
+        <button class="section-button">Хостинги</button>
+    </section>
+
+    <section class="section-container">
+        <h2>Секция 4</h2>
+        <p>Содержимое секции 4...</p>
+        <button class="section-button">Секция 4</button>
+    </section> {% endcomment %}
+</div>
+{% endblock %}
+
+{% block footer %}
+    <footer><center>© 2024 Герчук Вікторія<br> 
+        Всі права захищені.<br>
+        м.Львів<br>
+        Email: vikaherchyk@gmail.com</center>
+    </footer> 
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="product-container">
+    <div class="image-communication">
+      <div class="product-image">
+        <section>
+          {% if product.booked_booking %}
+                <span class="booked">Заброньовано</span>
+          {% endif %}
+          {% comment %} <span class="booked">{{product.booked_booking}}</span>
+          <input type="hidden" id="booked_booking" value="{{ product.booked_booking }}"> {% endcomment %}
+        </section>
+        <img class="photo-image" src="{{product.image.url}}" alt="Product Image">
+        <div class="information-house">
+          <h2>{{product.name}}</h2>
+          <p class="price">Адреса:{{product.quantity}}</br>
+          {{product.price}}</br>
+          Площа: {{product.discount}} M²</p>
+          <p class="product-id">id: {{product.display_id}}</p>
+          <p>Кількість кімнат: {{product.rooms}}</p>
+        </div>
+      </div>
+
+      <div class="container-communication">
+        <form method="post" class="form" id="bookingForm">
+          {% csrf_token %}
+          {% if request.GET.next %}
+            <input type="hidden" name="next" value={{request.GET.next}}>
+          {% endif %}
+           <div class="form-control">
+            <label for="id_username" class="form-label">Ім'я користувача*</label>
+            <input type="text" class="form-control" id="id_username"
+                value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+                name="username"
+                placeholder="Введіть ваше ім'я користувача" required>
+                {% if form.username.errors %}
+                <div class="alert alert-danger alert-dismissible fade show">{{form.username.errors}}</div>
+                {% endif %}
+          </div>
+          <div class="form-control">
+            <label for="id_email" class="form-label">Email*</label>
+            <input type="email" class="form-control" id="id_email"
+                  value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+                  name="email"
+                  placeholder="Введіть ваш email" required>
+                  {% if form.email.errors %}
+                  <div class="alert alert-danger alert-dismissible fade show">{{form.email.errors}}</div>
+                  {% endif %}
+          </div>
+          <div class="form-control">
+            <label for="id_phone_number" class="form-label">Номер телефону*</label>
+            <input type="tel" class="form-control" id="id_phone_number" 
+            value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
+            name="phone_number"
+            placeholder="Введіть номер телефону" required>
+            {% if form.phone_number.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{form.phone_number.errors}}</div>
+            {% endif %}
+          </div>
+          <div class="form-control">
+            <label for="checkin" class="form-label">Дата заїзду:</label>
+            <input type="date" class="form-control" id="checkin" name="checkin" required>
+          </div>  
+          <div class="form-control">
+            <label for="checkout" class="form-label">Дата виїзду:</label>
+            <input type="date" class="form-control" id="checkout" name="checkout" required>
+          </div>
+
+                        {% comment %} <div class="mb-3">
+                            <label for="id_booked_booking" class="form-label">Заброньовано:</label>
+                            <input type="checkbox" id="id_booked_booking" 
+                              value="{% if form.booked_booking.value %}{{ form.booked_booking.value }}{% endif %}"
+                              name="booked_booking">
+                            {% if form.booked_booking.errors %}
+                              <div class="alert alert-danger alert-dismissible fade show">{{form.booked_booking.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit"
+                        class="btn btn-primary booked-button">Бронювати</button> {% endcomment %}
+          <button type="submit" name="book_button" class="btn btn-primary booked-button">Бронювати</button>
+
+
+
+          <p>{{product.contact_person}}</p>
+          <p>Email: {{product.email}}</p>
+          Тел. <a href="tel: {{product.phone_number}}">{{product.phone_number}}</a>
+        </form>
+        
+      </div>
+    </div>
+    <div class="information-house">
+      <p class="product-description">ОПИС</p>
+      <p class="text-description">{{product.description}}</p>
+    </div>      
+      
+      {% comment %}
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2573.774501173837!2d24.068751199999998!3d49.827903299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473ac2b2c4f71cb3%3A0xdfcd6bfe20e6a086!2zNjJWLCDQstGD0LvQuNGG0Y8g0J_QsNGB0ZbRh9C90LAsIDYy0JIsINCb0YzQstC-0LIsINCb0YzQstC-0LLRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNzkwMDA!5e0!3m2!1suk!2sua!4v1714843088115!5m2!1suk!2sua" class="maps"></iframe>{% endcomment %}
+</div>
+{% endblock %}
